@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,4 +67,19 @@ public class Db_action extends SQLiteOpenHelper {
         }
         return list;
     }
+
+    //delete individual contact
+    public void deleteitem(Model mod){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TB_CONTATCS,Id+"=?",new String[]{String.valueOf(mod.getId())});
+    }
+
+    public void deleteContact(int itempos){
+    SQLiteDatabase db = getReadableDatabase();
+    db.delete(TB_CONTATCS,"id = "+itempos,null);
+
+    }
+
+
+
 }

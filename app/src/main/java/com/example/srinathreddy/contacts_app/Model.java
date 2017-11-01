@@ -9,11 +9,19 @@ public class Model {
     String Phone;
     String Email;
     String Address;
+    int id;
 
     public Model() {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return Name;
@@ -53,6 +61,7 @@ public class Model {
         this.Phone= Phone;
         this.Address= Address;
     }
+
 
 
 }

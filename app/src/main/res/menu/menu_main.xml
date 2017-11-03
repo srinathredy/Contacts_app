@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.srinathreddy.contacts_app.MainActivity">
     <item
+        android:id="@+id/Deleted_contacts"
         android:orderInCategory="100"
         android:title="Deleted Contacts" />
     <item

@@ -11,6 +11,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ImageView
+            android:onClick="add_image"
+            android:id="@+id/ins_addimage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/ic_launcher" />
+
         <EditText
             android:id="@+id/ins_name"
             android:layout_width="match_parent"
@@ -49,5 +56,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Save" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

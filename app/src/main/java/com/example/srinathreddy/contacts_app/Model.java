@@ -9,6 +9,17 @@ public class Model {
     String Phone;
     String Email;
     String Address;
+    byte[] Image;
+
+
+    public byte[] getImage() {
+        return Image;
+    }
+
+    public void setImage(byte[] image) {
+        Image = image;
+    }
+
     int id;
 
     public Model() {
@@ -55,11 +66,12 @@ public class Model {
         Address = address;
     }
 
-    public Model(String Name, String Phone, String Email, String Address) {
+    public Model(String Name, String Phone, String Email, String Address, byte[] Image) {
         this.Email = Email;
         this.Name  =Name;
         this.Phone= Phone;
         this.Address= Address;
+        this.Image= Image;
     }
 
 

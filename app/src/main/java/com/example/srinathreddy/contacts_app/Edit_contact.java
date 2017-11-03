@@ -59,10 +59,14 @@ public class Edit_contact extends AppCompatActivity {
          Intent goto_View_full_contact = new Intent(Edit_contact.this,View_full_contact.class);
         goto_View_full_contact.putExtra("position", position);
         startActivity(goto_View_full_contact);
-        finish();
 
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Edit_contact.this,View_full_contact.class);
+        startActivity(intent);
+        //super.onBackPressed();
+    }
 }

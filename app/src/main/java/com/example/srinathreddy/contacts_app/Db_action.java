@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.media.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class Db_action extends SQLiteOpenHelper {
     public static final String PHONE="phone";
     public static final String Id="id";
     public static final String ADDRESS="Address";
+    public static final String IMAGE = "picture";
 
 
     public Db_action(Context context) {
@@ -30,14 +32,16 @@ public class Db_action extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table Contact"+"(id integer primary key autoincrement,name text,phone text,email text, address text)");
+        db.execSQL("create table Contact"+"(id integer primary key autoincrement,name text,phone text,email text, address text, picture blob)");
+        db.execSQL("create table DeletedContacts"+"(id integer primary key autoincrement,name text,phone text,email text, address text)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TB_CONTATCS);
+        db.execSQL("DROP TABLE IF EXISTS " + TB_DELETED_CONTACTS);
         onCreate(db);
-        onCreate(db);
+
     }
 
     //insert values
@@ -48,6 +52,7 @@ public class Db_action extends SQLiteOpenHelper {
         cv.put(PHONE,model.getPhone());
         cv.put(EMAIL,model.getEmail());
         cv.put(ADDRESS,model.getAddress());
+        cv.put(IMAGE,model.getImage());
 
         data.insert(TB_CONTATCS,null,cv);
 
@@ -85,6 +90,7 @@ public class Db_action extends SQLiteOpenHelper {
                 obj.setPhone(cursor.getString(2));
                 obj.setEmail(cursor.getString(3));
                 obj.setAddress(cursor.getString(4));
+                obj.setImage(cursor.getBlob(5));
                 list.add(obj);
             }while(cursor.moveToNext());
         }

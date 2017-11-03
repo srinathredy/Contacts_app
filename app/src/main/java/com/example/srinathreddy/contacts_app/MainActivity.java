@@ -1,8 +1,10 @@
 package com.example.srinathreddy.contacts_app;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
@@ -18,7 +20,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     Db_action db;
     ListView view_contact_name;
-    int itemPos;
+    //int itemPos;
+    List<Model> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +31,11 @@ public class MainActivity extends AppCompatActivity {
         //this views contact name in home page
         view_contact_name = (ListView)findViewById(R.id.lv_view_contacts);
         db = new Db_action(this);
-        List<Model> list= db.getdata();
-        Custom_view_contact_name ref = new Custom_view_contact_name(this,list);
-        view_contact_name.setAdapter(ref);
+        dblistdata();
 
-        registerForContextMenu(view_contact_name);
+
+        //this is to use context menu
+       //registerForContextMenu(view_contact_name);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,6 +50,61 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        view_contact_name.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent view_full_contact = new Intent(MainActivity.this,View_full_contact.class);
+                view_full_contact.putExtra("position",position+1);
+                startActivity(view_full_contact);
+            }
+        });
+
+
+
+       view_contact_name.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder action = new AlertDialog.Builder(MainActivity.this);
+                action.setMessage("Do you want to delete contact?");
+                action.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                db.deleteContact(position+1);
+                                dblistdata();
+                                Toast.makeText(getApplicationContext(),""+position,Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                action.setNegativeButton("cancel",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+
+                            }
+                        });
+
+
+                action.show();
+
+
+
+
+                return true;
+            }
+        });
+    }
+    // refresh  activity_main when activity is performed
+    // dblistdata() method is used and here it retrives database each time when called
+    private void dblistdata() {
+
+        list= db.getdata();
+        Custom_view_contact_name ref = new Custom_view_contact_name(this,list);
+        view_contact_name.setAdapter(ref);
+        ref.notifyDataSetChanged();
     }
 
     @Override
@@ -72,37 +130,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
-    {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        itemPos = info.position;
-        menu.add(0, v.getId(), 0, "Delete");
 
-        //groupId, itemId, order, title
-
-    }
-    @Override
-    public boolean onContextItemSelected(MenuItem item){
-        if(item.getTitle()=="Delete"){
-            db.deleteContact(itemPos);
-
-            //deleteReport(itemPos);
-            Toast.makeText(getApplicationContext(),""+itemPos+"",Toast.LENGTH_LONG).show();
-            view_contact_name.invalidateViews();
-
-
-        }
-        else{
-            return false;
-        }
-        return true;
-    }
-
-    private void deleteReport(int itemPos) {
-        //delete code
-
-    }
 
 
 }

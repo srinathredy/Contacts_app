@@ -43,20 +43,13 @@ public class Custom_view_contact_name extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater layoutInflater=(LayoutInflater)cx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final LayoutInflater layoutInflater=(LayoutInflater)cx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = layoutInflater.inflate(R.layout.value,null);
         TextView tv =(TextView)convertView.findViewById(R.id.view_contact_name);
         final Model mod = list.get(position);
         tv.setText(mod.getName());
         data = new Db_action(cx);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                data.deleteitem(mod);
-                Toast.makeText(cx,"row deleted from database",Toast.LENGTH_LONG).show();
 
-            }
-        });
         return convertView;
     }
 }

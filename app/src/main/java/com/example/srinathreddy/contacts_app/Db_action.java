@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +34,8 @@ public class Db_action extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TB_CONTATCS);
+        onCreate(db);
         onCreate(db);
     }
 
@@ -68,15 +69,33 @@ public class Db_action extends SQLiteOpenHelper {
         return list;
     }
 
-    //delete individual contact
-    public void deleteitem(Model mod){
-        SQLiteDatabase db = getWritableDatabase();
-        db.delete(TB_CONTATCS,Id+"=?",new String[]{String.valueOf(mod.getId())});
+
+    // full contact view
+    //views in View_full_contact class
+    public List<Model> viewContact(int position){
+        String query="Select * from " + TB_CONTATCS + " WHERE " +Id+ " = ' " +position+ " ' ";
+        SQLiteDatabase database = getReadableDatabase();
+        List<Model> list = new ArrayList<>();
+        Cursor cursor = database.rawQuery(query,null);
+        if(cursor.moveToFirst()){
+            do{
+                Model obj = new Model();
+                obj.setName(cursor.getString(1));
+                obj.setPhone(cursor.getString(2));
+                obj.setEmail(cursor.getString(3));
+                obj.setAddress(cursor.getString(4));
+                list.add(obj);
+            }while(cursor.moveToNext());
+        }
+        return list;
     }
 
     public void deleteContact(int itempos){
-    SQLiteDatabase db = getReadableDatabase();
-    db.delete(TB_CONTATCS,"id = "+itempos,null);
+    SQLiteDatabase db = this.getWritableDatabase();
+    db.delete(TB_CONTATCS,Id + " = ? ",new String[]{String.valueOf(itempos)});
+      //  database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + CONTACTS_COLUMN_TITLE + "= '" + title + "'");
+
+
 
     }
 

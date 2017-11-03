@@ -4,42 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.srinathreddy.contacts_app.View_full_contact">
+    tools:context="com.example.srinathreddy.contacts_app.Edit_contact">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/View_name"
+        <EditText
+            android:id="@+id/Edit_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:ems="10"
+            android:inputType="textPersonName" />
 
-        <TextView
-            android:id="@+id/View_phone"
+        <EditText
+            android:id="@+id/Edit_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:ems="10"
+            android:inputType="phone" />
 
-        <TextView
-            android:id="@+id/View_email"
+        <EditText
+            android:id="@+id/Edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:ems="10"
+            android:inputType="textEmailAddress" />
 
-        <TextView
-            android:id="@+id/View_address"
+        <EditText
+            android:id="@+id/Edit_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:ems="10"
+            android:inputType="textPostalAddress" />
 
         <Button
-            android:onClick="edit_contact"
-            android:id="@+id/button"
+            android:onClick="Update"
+            android:id="@+id/Update"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit" />
+            android:text="Save" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

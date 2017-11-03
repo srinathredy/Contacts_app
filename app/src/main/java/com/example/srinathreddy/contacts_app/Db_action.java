@@ -16,6 +16,7 @@ import java.util.List;
 public class Db_action extends SQLiteOpenHelper {
     private static final String DBNAME="MyContactsList";
     public static final String TB_CONTATCS="Contact";
+    public static final String TB_DELETED_CONTACTS="DeletedContacts";
     public static final String NAME="name";
     public static final String EMAIL="email";
     public static final String PHONE="phone";
@@ -92,6 +93,7 @@ public class Db_action extends SQLiteOpenHelper {
 
     public void deleteContact(int itempos){
     SQLiteDatabase db = this.getWritableDatabase();
+    db.execSQL("insert into DeletedContacts select * from Contact where id = "+itempos);
     db.delete(TB_CONTATCS,Id + " = ? ",new String[]{String.valueOf(itempos)});
       //  database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + CONTACTS_COLUMN_TITLE + "= '" + title + "'");
 
@@ -101,4 +103,15 @@ public class Db_action extends SQLiteOpenHelper {
 
 
 
+
+    public int update(Model model) {
+        SQLiteDatabase data = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(NAME,model.getName());
+        cv.put(PHONE,model.getPhone());
+        cv.put(EMAIL,model.getEmail());
+        cv.put(ADDRESS,model.getAddress());
+
+        return   data.update(TB_CONTATCS,cv,Id+"=?",new String[]{String.valueOf(model.getId())});
+    }
 }

@@ -7,11 +7,13 @@
 
     <TextView
         android:id="@+id/view_contact_name"
-        android:layout_width="316dp"
-        android:layout_height="40dp"
+        android:layout_width="380dp"
+        android:layout_height="52dp"
         android:layout_weight="1"
+        android:shadowColor="@android:color/darker_gray"
         android:text="TextView"
+        android:textColor="@android:color/black"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="2dp" />
+        tools:layout_editor_absoluteX="6dp" />
 
 </android.support.constraint.ConstraintLayout>

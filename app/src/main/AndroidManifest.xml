@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddContact" />
-        <activity android:name=".View_full_contact"></activity>
+        <activity android:name=".View_full_contact" />
+        <activity android:name=".Edit_contact"></activity>
     </application>
 
 </manifest>
